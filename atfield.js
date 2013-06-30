@@ -14,16 +14,13 @@ var ATField = Class.create({
     },
     setEventListener: function() {
         var body = $(document.body);
-        body.observe('click', this.deployATField.bindAsEventListener(this));
-        if (this.hasTouchEvent) {
-            body.observe('touchstart', this.deployATField.bindAsEventListener(this));
-        }
+        body.observe(this.hasTouchEvent ? 'touchstart' : 'click', this.deployATField.bindAsEventListener(this));
     },
     deployATField: function(ev) {
-        ev.stop();
         this.playSound();
         var x = this.hasTouchEvent ? ev.touches[0].pageX : ev.pageX;
         var y = this.hasTouchEvent ? ev.touches[0].pageY : ev.pageY;
+        ev.stop();
         this.ripple(x, y, 50);
     },
     playSound: function() {
@@ -41,7 +38,7 @@ var ATField = Class.create({
         var elm = this.createOctagon(this.generateOctagonPoints(x, y, r));
         this.insertOctagon(elm);
         this.ripple.bind(this).delay(0.03, x, y, r + 50);
-        elm.remove.bind(elm).delay(3);
+        if ('remove' in elm) elm.remove.bind(elm).delay(3);
     },
     createOctagon: function(points) {
         var elm = document.createElementNS(this.SVG_NS, 'polygon');
