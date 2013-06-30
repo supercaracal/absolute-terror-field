@@ -4,14 +4,12 @@ var ATField = Class.create({
     hasTouchEvent: null,
     hasAudioElm: null,
     svgElm: null,
-    gradElm: null,
-    initialize: function(svgId, gradId) {
+    initialize: function(svgId) {
         this.SVG_NS = 'http://www.w3.org/2000/svg';
         this.XLINK_NS = 'http://www.w3.org/1999/xlink';
         this.hasTouchEvent = typeof new Element('div', {ontouchstart: 'return;'}).ontouchstart == 'function';
         this.hasAudioElm = typeof Audio == 'function' && Audio.name == 'HTMLAudioElement' && typeof Audio.prototype.canPlayType == 'function' && new Audio().canPlayType('audio/mpeg') == 'maybe';
         this.svgElm = $(svgId);
-        this.gradElm = $(gradId);
         this.setEventListener.bind(this).delay(0.5);
     },
     setEventListener: function() {
@@ -40,8 +38,10 @@ var ATField = Class.create({
     },
     ripple: function(x, y, r) {
         if (300 < r) return;
-        this.insertOctagon(this.createOctagon(this.generateOctagonPoints(x, y, r)));
+        var elm = this.createOctagon(this.generateOctagonPoints(x, y, r));
+        this.insertOctagon(elm);
         this.ripple.bind(this).delay(0.03, x, y, r + 50);
+        elm.remove.bind(elm).delay(3);
     },
     createOctagon: function(points) {
         var elm = document.createElementNS(this.SVG_NS, 'polygon');
@@ -49,8 +49,8 @@ var ATField = Class.create({
         elm.setAttributeNS(null, 'stroke', '#FF6600');
         elm.setAttributeNS(null, 'fill', 'url(#grad01)');
         elm.setAttributeNS(null, 'stroke-width', '1');
-        elm.setAttributeNS(null, 'stroke-opacity', '0.7');
-        elm.setAttributeNS(null, 'opacity', '0.7');
+        elm.setAttributeNS(null, 'stroke-opacity', '0.9');
+        elm.setAttributeNS(null, 'opacity', '0.9');
         return elm;
     },
     generateOctagonPoints: function(cx, cy, r) {
@@ -66,6 +66,6 @@ var ATField = Class.create({
         ];
     },
     insertOctagon: function(elm) {
-        this.svgElm.insertBefore(elm, this.gradElm.nextSibling);
+        this.svgElm.insertBefore(elm, this.svgElm.lastElementChild);
     }
 });
