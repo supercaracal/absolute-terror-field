@@ -1,5 +1,5 @@
 {
-  "name": "doors-of-guf",
+  "name": "atfield",
   "version": "0.0.1",
   "scripts": {
     "start" : "node web.js",
