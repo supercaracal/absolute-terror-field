@@ -8,18 +8,22 @@ var ATField = Class.create({
         this.SVG_NS = 'http://www.w3.org/2000/svg';
         this.XLINK_NS = 'http://www.w3.org/1999/xlink';
         this.hasTouchEvent = typeof new Element('div', {ontouchstart: 'return;'}).ontouchstart == 'function';
-        this.hasAudioElm = typeof Audio == 'function' && Audio.name == 'HTMLAudioElement' && typeof Audio.prototype.canPlayType == 'function' && new Audio().canPlayType('audio/mpeg') == 'maybe';
+        this.hasAudioElm = typeof Audio == 'function'
+            && Audio.name == 'HTMLAudioElement'
+            && typeof Audio.prototype.canPlayType == 'function'
+            && new Audio().canPlayType('audio/mpeg') == 'maybe';
         this.svgElm = $(svgId);
         this.setEventListener.bind(this).delay(0.5);
     },
     setEventListener: function() {
         var body = $(document.body);
-        body.observe(this.hasTouchEvent ? 'touchstart' : 'click', this.deployATField.bindAsEventListener(this));
+        body.observe(this.hasTouchEvent ? 'touchstart' : 'click',
+            this.deployATField.bindAsEventListener(this));
     },
     deployATField: function(ev) {
         this.playSound();
-        var x = this.hasTouchEvent ? ev.touches[0].pageX : ev.pageX;
-        var y = this.hasTouchEvent ? ev.touches[0].pageY : ev.pageY;
+        var x = this.hasTouchEvent ? ev.touches[0].pageX : ev.pageX
+          , y = this.hasTouchEvent ? ev.touches[0].pageY : ev.pageY;
         ev.stop();
         this.ripple(x, y, 50);
     },
@@ -51,16 +55,15 @@ var ATField = Class.create({
         return elm;
     },
     generateOctagonPoints: function(cx, cy, r) {
-        return [
-            [cx + Math.cos(Math.PI / 180 *  22.5) * r, cy + Math.sin(Math.PI / 180 *  22.5) * r],
-            [cx + Math.cos(Math.PI / 180 *  67.5) * r, cy + Math.sin(Math.PI / 180 *  67.5) * r],
-            [cx + Math.cos(Math.PI / 180 * 112.5) * r, cy + Math.sin(Math.PI / 180 * 112.5) * r],
-            [cx + Math.cos(Math.PI / 180 * 157.5) * r, cy + Math.sin(Math.PI / 180 * 157.5) * r],
-            [cx + Math.cos(Math.PI / 180 * 202.5) * r, cy + Math.sin(Math.PI / 180 * 202.5) * r],
-            [cx + Math.cos(Math.PI / 180 * 247.5) * r, cy + Math.sin(Math.PI / 180 * 247.5) * r],
-            [cx + Math.cos(Math.PI / 180 * 292.5) * r, cy + Math.sin(Math.PI / 180 * 292.5) * r],
-            [cx + Math.cos(Math.PI / 180 * 337.5) * r, cy + Math.sin(Math.PI / 180 * 337.5) * r]
-        ];
+        var theta = 360 / 8
+          , rotateDeg = theta / 2
+          , radian = Math.PI / 180;
+        return $A($R(0, 7)).map(function(x) {
+            return [
+                cx + Math.cos(radian * (theta * x + rotateDeg)) * r,
+                cy + Math.sin(radian * (theta * x + rotateDeg)) * r
+            ];
+        });
     },
     insertOctagon: function(elm) {
         this.svgElm.insertBefore(elm, this.svgElm.lastElementChild);
