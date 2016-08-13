@@ -7,7 +7,9 @@ var ATField = Class.create({
   initialize: function(svgId) {
     this.SVG_NS = 'http://www.w3.org/2000/svg';
     this.XLINK_NS = 'http://www.w3.org/1999/xlink';
-    this.hasTouchEvent = typeof new Element('div', {ontouchstart: 'return;'}).ontouchstart == 'function';
+    // MIXME:
+    // this.hasTouchEvent = typeof new Element('div', {ontouchstart: 'return;'}).ontouchstart == 'function';
+    this.hasTouchEvent = false;
     var canPlayMpeg = typeof Audio == 'function' && Audio.name == 'HTMLAudioElement' &&
         typeof Audio.prototype.canPlayType == 'function' && new Audio().canPlayType('audio/mpeg');
     this.hasAudioElm = canPlayMpeg == 'probably' || canPlayMpeg == 'maybe';
