@@ -2,7 +2,7 @@
   "name": "atfield",
   "version": "0.0.1",
   "scripts": {
-    "start" : "node web.js",
+    "start": "node web.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
@@ -13,6 +13,6 @@
     "express": "4.14.0"
   },
   "repository": "https://github.com/supercaracal/absolute-terror-field.git",
-  "author": "PocaPocaUnty",
+  "author": "Taishi Kasuga",
   "license": "UNLICENSED"
 }
