@@ -6,13 +6,13 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
-    "node": "6.3.1",
-    "npm": "3.10.7"
+    "node": "7.0.0",
+    "npm": "4.0.2"
   },
   "dependencies": {
     "express": "4.14.0"
   },
-  "repository": "https://github.com/supercaracal/atfield.git",
+  "repository": "https://github.com/supercaracal/absolute-terror-field.git",
   "author": "PocaPocaUnty",
   "license": "UNLICENSED"
 }
