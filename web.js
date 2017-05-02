@@ -10,7 +10,7 @@ app.get('/', function(req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
-app.get('/*', function(req, res) {
+app.get('/absolute-terror-field/:file_name', function(req, res) {
   res.header('Cache-Control', 'public, max-age=1800');
-  res.sendFile(__dirname + req.url);
+  res.sendFile(__dirname + '/' + req.params.file_name);
 });

@@ -48,7 +48,7 @@ var ATField = Class.create({
     if (!this.hasAudioElm) {
       return;
     }
-    var sound = new Element('audio', {src: '/at_field.mp3'});
+    var sound = new Element('audio', {src: '/absolute-terror-field/atfield.mp3'});
     if (Prototype.Browser.MobileSafari) {
       sound.load();
     }
