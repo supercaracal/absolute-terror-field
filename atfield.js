@@ -23,6 +23,9 @@
       this.hasTouchEvent = typeof new Element('div', { ontouchstart: 'return;' }).ontouchstart === 'function';
       this.hasAudioElm = canPlayMpeg === 'probably' || canPlayMpeg === 'maybe';
       this.svgElm = global.$(svgId);
+    },
+
+    ready: function ready() {
       this.setEventListener.bind(this).delay(0.5);
     },
 
