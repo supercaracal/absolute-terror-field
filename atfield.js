@@ -13,14 +13,14 @@
 
     initialize: function initialize(svgId) {
       var canPlayMpeg = typeof Audio === 'function' &&
-                        Audio.name === 'HTMLAudioElement' &&
-                        typeof Audio.prototype.canPlayType === 'function' &&
-                        new Audio().canPlayType('audio/mpeg');
+                        global.Audio.name === 'HTMLAudioElement' &&
+                        typeof global.Audio.prototype.canPlayType === 'function' &&
+                        new global.Audio().canPlayType('audio/mpeg');
 
       this.SVG_NS = 'http://www.w3.org/2000/svg';
       this.XLINK_NS = 'http://www.w3.org/1999/xlink';
-      this.hasMousedownEvent = typeof new Element('div', { onmousedown: 'return;' }).onmousedown === 'function';
-      this.hasTouchEvent = typeof new Element('div', { ontouchstart: 'return;' }).ontouchstart === 'function';
+      this.hasMousedownEvent = typeof new global.Element('div', { onmousedown: 'return;' }).onmousedown === 'function';
+      this.hasTouchEvent = typeof new global.Element('div', { ontouchstart: 'return;' }).ontouchstart === 'function';
       this.hasAudioElm = canPlayMpeg === 'probably' || canPlayMpeg === 'maybe';
       this.svgElm = global.$(svgId);
     },
@@ -30,7 +30,7 @@
     },
 
     setEventListener: function setEventListener() {
-      var body = global.$(document.body);
+      var body = global.$(global.document.body);
       if (this.hasMousedownEvent) {
         body.observe('mousedown', this.deployATField.bindAsEventListener(this));
       }
@@ -59,7 +59,7 @@
       if (!this.hasAudioElm) {
         return;
       }
-      sound = new Element('audio', { src: '/absolute-terror-field/atfield.mp3' });
+      sound = new global.Element('audio', { src: '/absolute-terror-field/atfield.mp3' });
       if (global.Prototype.Browser.MobileSafari) {
         sound.load();
       }
@@ -84,7 +84,7 @@
     },
 
     createOctagon: function createOctagon(points) {
-      var elm = document.createElementNS(this.SVG_NS, 'polygon');
+      var elm = global.document.createElementNS(this.SVG_NS, 'polygon');
       var pointStr = points.map(function fj(x) { return x.join(','); }).join(' ');
       elm.setAttributeNS(null, 'points', pointStr);
       elm.setAttributeNS(null, 'stroke', '#FF6600');
