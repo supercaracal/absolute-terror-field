@@ -7,18 +7,18 @@
     "lint": "./node_modules/.bin/eslint ./"
   },
   "engines": {
-    "node": "*.*.*",
-    "npm": "*.*.*"
+    "node": "*",
+    "npm": "*"
   },
   "dependencies": {
-    "express": "*.*.*"
+    "express": "*"
   },
   "repository": "https://github.com/supercaracal/absolute-terror-field.git",
   "author": "Taishi Kasuga",
   "license": "UNLICENSED",
   "devDependencies": {
-    "eslint": "*.*.*",
-    "eslint-config-airbnb-base": "*.*.*",
-    "eslint-plugin-import": "*.*.*"
+    "eslint": "*",
+    "eslint-config-airbnb-base": "*",
+    "eslint-plugin-import": "*"
   }
 }
