@@ -1,10 +1,8 @@
 {
   "name": "absolute-terror-field",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "scripts": {
-    "start": "node web.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "./node_modules/.bin/eslint ./"
+    "start": "node backend.js"
   },
   "engines": {
     "node": "*",
@@ -15,10 +13,5 @@
   },
   "repository": "https://github.com/supercaracal/absolute-terror-field.git",
   "author": "Taishi Kasuga",
-  "license": "UNLICENSED",
-  "devDependencies": {
-    "eslint": "*",
-    "eslint-config-airbnb-base": "*",
-    "eslint-plugin-import": "*"
-  }
+  "license": "UNLICENSED"
 }

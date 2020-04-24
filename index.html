@@ -1,26 +1,14 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="title" content="心の壁" />
-    <title>心の壁</title>
-    <meta name="keywords" content="心の壁,svg,audio,javascript,prototype.js" />
-    <meta name="description" content="Attack on ladies." />
-    <meta property="og:type" content="game" />
-    <meta property="og:title" content="心の壁" />
-    <meta property="og:url" content="http://supercaracal.github.io/absolute-terror-field/" />
-    <meta property="og:image" content="http://supercaracal.github.io/absolute-terror-field/ladies.png" />
-    <meta property="og:description" content="Attack on ladies." />
+    <meta charset="utf-8" />
+    <title>Absolute Terror Field</title>
     <link rel="shortcut icon" href="/absolute-terror-field/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" href="/absolute-terror-field/ladies.png" />
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript">google.load('prototype', '1.7')</script>
-    <script type="text/javascript" src="/absolute-terror-field/atfield.js"></script>
-    <script type="text/javascript">Event.observe(window, 'load', function() { new ATField('space01').ready(); });</script>
+    <script type="text/javascript" src="/absolute-terror-field/frontend.js"></script>
   </head>
-  <body style="cursor: pointer; background-image: url('/absolute-terror-field/ladies.png'); background-repeat: repeat;">
-    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="space01" width="100%" height="100%" style="position: absolute;">
-      <radialGradient id="grad01" cx="50%" cy="50%" r="50%">
+  <body style="cursor: pointer; background-image: url('/absolute-terror-field/background.png'); background-repeat: repeat;">
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="js-svg" width="100%" height="100%" style="position: absolute;">
+      <radialGradient id="js-rad-grad" cx="50%" cy="50%" r="50%">
         <stop offset="0%"   stop-color="#FFFFFF" stop-opacity="0" />
         <stop offset="90%"  stop-color="#FFFFFF" stop-opacity="0" />
         <stop offset="91%"  stop-color="#FFCC99" stop-opacity="0.50" />
