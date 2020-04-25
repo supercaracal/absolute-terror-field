@@ -72,8 +72,8 @@
     }
     const audio = new $.Audio(ctx.soundEffectFilePath);
     audio.play()
-      .then(() => {})
-      .catch((e) => { console.log(e); });
+      .then((r) => {})
+      .catch((e) => console.log(e));
   }
 
   function animateShape(ctx, x, y, r) {
