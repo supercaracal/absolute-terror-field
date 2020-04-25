@@ -8,14 +8,15 @@
   const MIN_SHAPE_SIZE = 50;
   const MAX_SHAPE_SIZE = 300;
   const NUMBER_OF_SHAPES = 8;
+  const DISPLAY_DELAY_MSEC = 30;
+  const DISPLAY_DURATION_MSEC = 3000;
 
   $.addEventListener('load', (event) => {
     const ctx = createContext(event.target);
     const handler = createHandler(ctx);
     if (ctx.hasMousedownEvent) {
       ctx.document.body.addEventListener('mousedown', handler);
-    }
-    if (ctx.hasTouchEvent) {
+    } else if (ctx.hasTouchEvent) {
       ctx.document.body.addEventListener('touchstart', handler);
     }
   });
@@ -25,10 +26,9 @@
       && typeof $.Audio.prototype.canPlayType === 'function'
       && new $.Audio().canPlayType('audio/mpeg');
     const svg = document.getElementById(ID_SVG);
-    let div = document.createElement('div');
+    const div = document.createElement('div');
     div.onmousedown = () => {};
     div.ontouchstart = () => {};
-
     return {
       document: document,
       hasMousedownEvent: typeof div.onmousedown === 'function',
@@ -41,6 +41,8 @@
       minShapeSize: MIN_SHAPE_SIZE,
       maxShapeSize: MAX_SHAPE_SIZE,
       numberOfShapes: NUMBER_OF_SHAPES,
+      displayDelayMsec: DISPLAY_DELAY_MSEC,
+      displayDurationMsec: DISPLAY_DURATION_MSEC,
     };
   }
 
@@ -69,11 +71,9 @@
       return;
     }
     const audio = new $.Audio(ctx.soundEffectFilePath);
-    try {
-      audio.play();
-    } catch (e) {
-      console.log(e);
-    }
+    audio.play()
+      .then(() => {})
+      .catch((e) => { console.log(e); });
   }
 
   function animateShape(ctx, x, y, r) {
@@ -83,11 +83,8 @@
     const points = generateOctagonPoints(ctx, x, y, r);
     const octagon = createOctagon(ctx, points);
     ctx.svg.insertBefore(octagon, ctx.svg.lastElementChild);
-    $.setTimeout(animateShape, 30, ctx, x, y, r + ctx.minShapeSize);
-
-    if ('remove' in octagon) {
-      $.setTimeout(() => octagon.remove(), 3000);
-    }
+    $.setTimeout(animateShape, ctx.displayDelayMsec, ctx, x, y, r + ctx.minShapeSize);
+    $.setTimeout(() => octagon.remove(), ctx.displayDurationMsec);
   }
 
   function generateOctagonPoints(ctx, cx, cy, r) {
