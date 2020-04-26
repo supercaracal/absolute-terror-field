@@ -4,10 +4,10 @@
   const ID_SVG = 'js-svg';
   const ID_RAD_GRAD = 'js-rad-grad';
   const NS_SVG = 'http://www.w3.org/2000/svg';
-  const PATH_SE = '/absolute-terror-field/se.mp3';
+  const PATH_SE = 'se.mp3';
   const MIN_SHAPE_SIZE = 50;
   const MAX_SHAPE_SIZE = 300;
-  const NUMBER_OF_SHAPES = 8;
+  const NUMBER_OF_VERTEX = 8;
   const DISPLAY_DELAY_MSEC = 30;
   const DISPLAY_DURATION_MSEC = 3000;
 
@@ -40,17 +40,17 @@
       soundEffectFilePath: PATH_SE,
       minShapeSize: MIN_SHAPE_SIZE,
       maxShapeSize: MAX_SHAPE_SIZE,
-      numberOfShapes: NUMBER_OF_SHAPES,
+      numberOfVertex: NUMBER_OF_VERTEX,
       displayDelayMsec: DISPLAY_DELAY_MSEC,
       displayDurationMsec: DISPLAY_DURATION_MSEC,
     };
   }
 
   function createHandler(ctx) {
-    return (event) => generateAbsoluteTerrorField(event, ctx);
+    return (event) => generateShapes(event, ctx);
   }
 
-  function generateAbsoluteTerrorField(event, ctx) {
+  function generateShapes(event, ctx) {
     let x, y;
     if (event.type === 'mousedown') {
       x = event.pageX;
@@ -63,7 +63,7 @@
     }
     event.stopPropagation();
     playSoundEffect(ctx);
-    animateShape(ctx, x, y, ctx.minShapeSize);
+    addShape(ctx, x, y, ctx.minShapeSize);
   }
 
   function playSoundEffect(ctx) {
@@ -76,22 +76,22 @@
       .catch((e) => console.log(e));
   }
 
-  function animateShape(ctx, x, y, r) {
+  function addShape(ctx, x, y, r) {
     if (r > ctx.maxShapeSize) {
       return;
     }
-    const points = generateOctagonPoints(ctx, x, y, r);
-    const octagon = createOctagon(ctx, points);
-    ctx.svg.insertBefore(octagon, ctx.svg.lastElementChild);
-    $.setTimeout(animateShape, ctx.displayDelayMsec, ctx, x, y, r + ctx.minShapeSize);
-    $.setTimeout(() => octagon.remove(), ctx.displayDurationMsec);
+    const points = generatePolygonPoints(ctx.numberOfVertex, x, y, r);
+    const polygon = createPolygon(ctx, points);
+    ctx.svg.insertBefore(polygon, ctx.svg.lastElementChild);
+    $.setTimeout(addShape, ctx.displayDelayMsec, ctx, x, y, r + ctx.minShapeSize);
+    $.setTimeout(() => polygon.remove(), ctx.displayDurationMsec);
   }
 
-  function generateOctagonPoints(ctx, cx, cy, r) {
-    const theta = 360 / 8;
+  function generatePolygonPoints(numberOfVertex, cx, cy, r) {
+    const theta = 360 / numberOfVertex;
     const rotateDeg = theta / 2;
     const radian = Math.PI / 180;
-    return [...Array(ctx.numberOfShapes)].map((_, i) => i).map((x) => {
+    return [...Array(numberOfVertex)].map((_, i) => i).map((x) => {
       return [
         cx + (Math.cos(radian * ((theta * x) + rotateDeg)) * r),
         cy + (Math.sin(radian * ((theta * x) + rotateDeg)) * r)
@@ -99,7 +99,7 @@
     });
   }
 
-  function createOctagon(ctx, points) {
+  function createPolygon(ctx, points) {
     const elm = ctx.document.createElementNS(ctx.svgNamespace, 'polygon');
     const pointStr = points.map((x) => x.join(',')).join(' ');
     elm.setAttributeNS(null, 'points', pointStr);
